@@ -1,6 +1,6 @@
 import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
-import { Trans } from "react-i18next"
+import type { HeadFC, PageProps, graphql } from "gatsby"
+import { Trans, useTranslation } from "react-i18next"
 
 const pageStyles = {
   color: "#232129",
@@ -138,12 +138,13 @@ const links = [
 ]
 
 const IndexPage: React.FC<PageProps> = () => {
+  const { t } = useTranslation()
   return (
     <main style={pageStyles}>
       <h1 style={headingStyles}>
         <Trans i18nKey="congrats">Congratulations</Trans>
         <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
+        <span style={headingAccentStyles}>— you just made a {t('app_name')} site! 🎉🎉🎉</span>
       </h1>
       <p style={paragraphStyles}>
         Edit <code style={codeStyles}>src/pages/index.tsx</code> to see this page
@@ -192,3 +193,17 @@ const IndexPage: React.FC<PageProps> = () => {
 export default IndexPage
 
 export const Head: HeadFC = () => <title>Home Page</title>
+
+export const query = graphql`
+  query ($language: String!) {
+    locales: allLocale(filter: {language: {eq: $language}}) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;

@@ -20,6 +20,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-react-i18next`,
       options: {
+        debug: true,
         localeJsonSourceName: `locale`, // name given to `gatsby-source-filesystem` plugin.
         languages: [`en`],
         defaultLanguage: `en`,
@@ -36,12 +37,7 @@ const config: GatsbyConfig = {
         },
         pages: [
           {
-            matchPath: '/:lang?/blog/:uid',
-            getLanguageFromPath: true,
-            excludeLanguages: ['es']
-          },
-          {
-            matchPath: '/preview',
+            matchPath: '/',
             languages: ['en']
           }
         ]
